@@ -5,7 +5,7 @@ GitHub: https://github.com/mitchellugero/jsondatabase
 ===============================================================
 This DB class supports the following functions:
 
-init("DATABASE_NAME"); //Load or create new database, then select it.
+init("DATABASE_NAME", "DATABASE_LOCATION" = null); //Load or create new database, then select it. (Optionally give a location to store the databse)
 insert("TABLE_NAME", '{"data":"in","JSON":"format"}', int = null);//Insert or add a new row into given table (Optional 3rd option: replace given row number) 
 select("TABLE_NAME", "WHERE" = null, "EQUALS" = null);//get data from selected row
 create_table("TABLE_NAME");//Create a new table with the given name.
@@ -31,24 +31,32 @@ $db->functionName(options);
 class JSONDatabase {
 	public $db = '';
 	
-	function __construct($dbf = null ){
+	function __construct($dbf = null, $dbd = null){
 		if($dbf !== null){
-			self::init($dbf);
+			self::init($dbf, $dbd);
 		}
 		return true;
 	}
-	public function init($dbf){
+	public function init($dbf, $dbd = null){
+		if($dbd !== null){
+			//We need to change the directory of where the DB is stored!! Also remove any trailing slashes ;)
+			$dbd = rtrim($dbd, '/');
+			$dbf = join(DIRECTORY_SEPARATOR, array($dbd, $dbf));//Join or implode work here, join is shorter to type though
+		}
 		if (!file_exists($dbf) && $dbf !== null) {
     		mkdir($dbf, 0777, true);
     		mkdir($dbf."/tables", 0777, true); //Tables dir
     		mkdir($dbf."/tmp", 0777, true); //Temp dir for caching
     		mkdir($dbf."/gc", 0777, true); //Garbage Collection
+    		$this->db = $dbf;
+    		return true;
 		} else if($dbf === null) {
 			//Shit.
 			return false;
 		}else if(file_exists($dbf)){
 			//Open db.
 			$this->db = $dbf;
+			return true;
 		}
 	}
 	public function insert($table, $data, $row = null){
