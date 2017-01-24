@@ -1,7 +1,9 @@
 JSONDatabase class written by Mitchell Urgero <info@urgero.org>
-GitHub: https://github.com/mitchellugero/jsondatabase
 ===============================================================
-This DB class supports the following functions:
+- GitHub: https://github.com/mitchellugero/jsondatabase
+
+
+### This DB class supports the following functions:
 
 - init("DATABASE_NAME", "DATABASE_LOCATION" = null); //Load or create new database, then select it. (Optionally give a location to store the databse)
 - insert("TABLE_NAME", '{"data":"in","JSON":"format"}', int = null);//Insert or add a new row into given table (Optional 3rd option: replace given row number) 
@@ -21,5 +23,7 @@ Things to note:
 How To Use
 ==========
 include('db.php');
+
 $db = new JSONDatabase("DATABASE_NAME");
+
 $db->functionName(options);
