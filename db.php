@@ -30,12 +30,11 @@ $db->functionName(options);
 */
 class JSONDatabase {
 	public $db = '';
-	
 	function __construct($dbf = null, $dbd = null){
 		if($dbf !== null){
-			self::init($dbf, $dbd);
+			return self::init($dbf, $dbd);
 		}
-		return true;
+		return false;
 	}
 	public function init($dbf, $dbd = null){
 		if($dbd !== null){
@@ -58,6 +57,7 @@ class JSONDatabase {
 			$this->db = $dbf;
 			return true;
 		}
+		return false;
 	}
 	public function insert($table, $data, $row = null){
 		//Insert row into table at specified int/string.
@@ -144,7 +144,7 @@ class JSONDatabase {
 			self::deleteDir($this->db."/tables/$table");
 			return true;
 		} else {
-			return "What happened...?";
+			return false;
 		}
 	}
 	public function dump_tables(){
@@ -187,7 +187,7 @@ class JSONDatabase {
 	}
 	public function delete_row($table, $row){
 		//Duh
-		//Duh
+		//Doesn't exactly work properly yet.
 		if (!file_exists($this->db."/tables/$table")) {
 			return false; //Folder not there.
 		} else if($table === null) {
@@ -203,14 +203,22 @@ class JSONDatabase {
 			}else if(file_exists($this->db."/tables/$table/$row")){
 				//Open db.
 				self::deleteDir($this->db."/tables/$table/$row");
+				
+				$rows = glob($this->db."/tables/$table" . '/*' , GLOB_ONLYDIR);
+				foreach($rows as $r){
+					$r = basename($r);
+					if($r > $row){
+						rename($this->db."/tables/$table/$r", $this->db."/tables/$table/".$r - 1);
+					}
+				}
 				return true;
 			} else {
-				return "What happened...?";
+				return false;
 			}
-			return true;
 		} else {
-			return "What happened...?";
+			return false;
 		}
+		return false;
 	}
 	public function clean($table){
 		//Cleans table of blank rows. Keeps shit tidy.
