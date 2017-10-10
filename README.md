@@ -11,7 +11,7 @@ JSONDatabase class written by Mitchell Urgero <info@urgero.org>
 - create_table("TABLE_NAME");//Create a new table with the given name.
 - delete_table("TABLE_NAME");//Delete the given table.
 - dump_tables();//Dump all tables AND their data (Mostly for backup purposes.)
-- check_table("TABLE_NAME");//Check if a table exists.
+- check_table("TABLE_NAME");//Check if a table exists. Returns number of rows if table exists.
 - list_tables();//List all available tables in selected database.
 - import("JSON_STRING_OF_DB_BACKUP");//import a database backup and restore into the given database.
 
