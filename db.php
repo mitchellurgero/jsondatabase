@@ -11,7 +11,7 @@ select("TABLE_NAME", "WHERE" = null, "EQUALS" = null);//get data from selected r
 create_table("TABLE_NAME");//Create a new table with the given name.
 delete_table("TABLE_NAME");//Delete the given table.
 dump_tables();//Dump all tables AND their data (Mostly for backup purposes.)
-check_table("TABLE_NAME");//Check if a table exists.
+check_table("TABLE_NAME");//Check if a table exists. Returns number of rows if exists
 list_tables();//List all available tables in selected database.
 import("JSON_STRING_OF_DB_BACKUP");//import a database backup and restore into the given database.
 
@@ -182,7 +182,7 @@ class JSONDatabase {
 		if (!file_exists($this->db."/tables/$table")){
 			return false;
 		} else {
-			return true;
+			return count(glob($this->db."/tables/$table" , GLOB_ONLYDIR));
 		}
 	}
 	public function delete_row($table, $row){
