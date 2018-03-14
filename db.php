@@ -92,7 +92,7 @@ class JSONDatabase {
 			}
 		}
 		$rows = glob($this->db."/tables/$table" . '/*' , GLOB_ONLYDIR);
-		$data;
+		$data = array();
 		$i = 0;
 		if($equals === null && $where === null){
 			//Return all the rows :D
