@@ -75,9 +75,19 @@ class JSONDatabase {
 			}
 			file_put_contents($this->db."/tables/$table/$num/".$key, $value);
 		}
+		return $num;
 	}
 	public function select($table, $where = null, $equals = null){
 		//Get data of row.
+		if(is_int($where) && is_int($equals)){
+			//We are pagenating, need to get all rows between the rows.
+			$range = range($where, $equals);
+			$rangeReturn = array();
+			foreach($range as $r){
+				$rangeReturn[$r] = self::select($table,"row_id",$r)[$r];
+			}
+			return $rangeReturn;
+		}
 		if($where == "row_id"){
 			if(file_exists($this->db."/tables/$table/".$equals)){
 				$dbd = glob($this->db."/tables/$table/".$equals."/*");
@@ -182,7 +192,7 @@ class JSONDatabase {
 		if (!file_exists($this->db."/tables/$table")){
 			return false;
 		} else {
-			return count(glob($this->db."/tables/$table" , GLOB_ONLYDIR));
+			return count(glob($this->db."/tables/$table" . '/*' , GLOB_ONLYDIR));
 		}
 	}
 	public function delete_row($table, $row){
