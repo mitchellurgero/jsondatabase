@@ -198,6 +198,8 @@ class JSONDatabase {
 	public function delete_row($table, $row){
 		//Duh
 		//Doesn't exactly work properly yet.
+		//Since this doesn't work properly YET - disabled for now. use insert to replace row data to blank out the row instead.
+		return false;
 		if (!file_exists($this->db."/tables/$table")) {
 			return false; //Folder not there.
 		} else if($table === null) {
