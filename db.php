@@ -70,6 +70,7 @@ class JSONDatabase {
 		}
 		$d = json_decode($data,true);
 		foreach($d as $key=>$value){
+			if($key == "row_id"){ continue;}
 			if(!file_exists($this->db."/tables/$table/$num")){
 				mkdir($this->db."/tables/$table/$num",0777, true);
 			}
@@ -136,7 +137,7 @@ class JSONDatabase {
 					$k = basename($key);
 					$data[$i][$k] = file_get_contents($this->db."/tables/$table/".basename($row)."/$k");
 				}
-				$data[$i]['row_id'] = basename($i);
+				$data[$i]['row_id'] = basename($row);
 			} else {
 				//Might add something here for gc, but for now, do nothing and continue.
 			}
