@@ -77,7 +77,7 @@ class JSONDatabase {
 		}
 		return $num;
 	}
-	public function select($table, $where = null, $equals = null){
+	public function select($table, $where = null, $equals = null, $invert = true){
 		//Get data of row.
 		if(is_int($where) && is_int($equals)){
 			//We are pagenating, need to get all rows between the rows.
@@ -102,6 +102,9 @@ class JSONDatabase {
 			}
 		}
 		$rows = glob($this->db."/tables/$table" . '/*' , GLOB_ONLYDIR);
+		if($invert){
+			$rows = array_reverse($rows);
+		}
 		$data = array();
 		$i = 0;
 		if($equals === null && $where === null){
@@ -120,7 +123,12 @@ class JSONDatabase {
 		}
 		foreach($rows as $row){
 			//Return only rows that contain the search query.
-			$t1 = file_get_contents($this->db."/tables/$table/".basename($row)."/$where");
+			$t1 = "";
+			if(file_exists($this->db."/tables/$table/".basename($row)."/$where")){
+				$t1 = file_get_contents($this->db."/tables/$table/".basename($row)."/$where");
+			} else {
+				continue;
+			}
 			if($t1 == $equals){
 				//We now need to read the row and return it as a PHP object.
 				$dbd = glob($this->db."/tables/$table/".basename($row)."/*");
