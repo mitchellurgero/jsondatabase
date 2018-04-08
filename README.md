@@ -1,6 +1,6 @@
 JSONDatabase class written by Mitchell Urgero <info@urgero.org>
 ===============================================================
-- GitHub: https://github.com/mitchellugero/jsondatabase
+- GitHub: https://github.com/mitchellurgero/jsondatabase
 
 
 ### This DB class supports the following functions:
