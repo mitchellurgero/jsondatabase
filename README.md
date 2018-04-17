@@ -27,3 +27,9 @@ include('db.php');
 $db = new JSONDatabase("DATABASE_NAME");
 
 $db->functionName(options);
+
+
+Install 
+=========
+
+Either git clone this repository, or use `composer install mitchellurgero/jsondatabase` to install via composer.
