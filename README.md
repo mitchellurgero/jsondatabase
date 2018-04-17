@@ -32,4 +32,4 @@ $db->functionName(options);
 Install 
 =========
 
-Either git clone this repository, or use `composer install mitchellurgero/jsondatabase` to install via composer.
+Either git clone this repository, or use `composer require mitchellurgero/jsondatabase` to install via composer.
