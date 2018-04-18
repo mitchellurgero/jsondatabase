@@ -3,5 +3,6 @@
     "description": "Flat-file Database that uses JSON to store data in a file structure similar to MySQL.",
     "autoload": {
         "psr-4": { "": "./" }
-    }
+    },
+    "minimum-stability": "stable"
 }
