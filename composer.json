@@ -1,7 +1,4 @@
 {
     "name": "simon511000/jsondatabase",
-    "description": "Flat-file Database that uses JSON to store data in a file structure similar to MySQL.",
-    "autoload": {
-        "psr-4": { "": "./" }
-    }
+    "description": "Flat-file Database that uses JSON to store data in a file structure similar to MySQL."
 }
