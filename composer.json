@@ -4,5 +4,5 @@
     "autoload": {
         "psr-4": { "": "./" }
     },
-    "version": "1.0-stable"
+    "version": "1.0-dev"
 }
